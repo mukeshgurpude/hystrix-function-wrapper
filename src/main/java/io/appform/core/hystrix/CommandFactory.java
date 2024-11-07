@@ -30,7 +30,7 @@ public class CommandFactory {
 
     public static <R> GenericHystrixCommand<R> create(
             String group, String command) {
-        return create(group,command, UUID.randomUUID().toString().replaceAll("-", ""));
+        return create(group,command, UUID.randomUUID().toString().replace("-", ""));
     }
 
     private CommandFactory() {}

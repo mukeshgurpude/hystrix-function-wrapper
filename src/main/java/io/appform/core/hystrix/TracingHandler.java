@@ -4,12 +4,17 @@ import io.opentracing.Scope;
 import io.opentracing.Span;
 import io.opentracing.Tracer;
 import io.opentracing.util.GlobalTracer;
+import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
+
+import java.util.Objects;
 
 /**
  * Utility class that handles all tracing related operations
  */
 @Slf4j
+@UtilityClass
 public class TracingHandler {
 
     public static Tracer getTracer() {
@@ -37,9 +42,10 @@ public class TracingHandler {
             if (tracer == null || parentSpan == null) {
                 return null;
             }
-            return tracer.buildSpan("hystrix:"+command)
+
+            return tracer.buildSpan("hystrix:" + (Objects.isNull(command) ? "undefined_command_name" : command))
                     .asChildOf(parentSpan)
-                    .withTag("hystrix.command", command)
+                    .withTag("hystrix.command", StringUtils.trimToEmpty(command))
                     .start();
         } catch (Exception e) {
             log.error("Error while starting child span", e);
