@@ -43,7 +43,7 @@ public class TracingHandler {
                 return null;
             }
 
-            return tracer.buildSpan("hystrix:" + (Objects.isNull(commandKey) ? "undefined_command_name" : commandKey))
+            return tracer.buildSpan("hystrix:" + commandKey)
                     .asChildOf(parentSpan)
                     .withTag("hystrix.command", StringUtils.trimToEmpty(commandKey))
                     .start();
