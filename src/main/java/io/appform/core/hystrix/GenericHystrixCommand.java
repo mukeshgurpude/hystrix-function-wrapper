@@ -59,7 +59,7 @@ public class GenericHystrixCommand<R> {
                 if (parentMDCContext != null) {
                     MDC.setContextMap(parentMDCContext);
                 }
-                final Span span = TracingHandler.startChildSpan(tracer, parentActiveSpan, command);
+                final Span span = TracingHandler.startChildSpan(tracer, parentActiveSpan, commandKey(group, command));
                 final Scope scope = TracingHandler.activateSpan(tracer, span);
 
                 MDC.put(TRACE_ID, traceId);

@@ -37,15 +37,15 @@ public class TracingHandler {
 
     public static Span startChildSpan(final Tracer tracer,
                                       final Span parentSpan,
-                                      final String command) {
+                                      final String commandKey) {
         try {
             if (tracer == null || parentSpan == null) {
                 return null;
             }
 
-            return tracer.buildSpan("hystrix:" + (Objects.isNull(command) ? "undefined_command_name" : command))
+            return tracer.buildSpan("hystrix:" + (Objects.isNull(commandKey) ? "undefined_command_name" : commandKey))
                     .asChildOf(parentSpan)
-                    .withTag("hystrix.command", StringUtils.trimToEmpty(command))
+                    .withTag("hystrix.command", StringUtils.trimToEmpty(commandKey))
                     .start();
         } catch (Exception e) {
             log.error("Error while starting child span", e);
