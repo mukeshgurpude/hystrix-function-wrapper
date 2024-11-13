@@ -6,9 +6,6 @@ import io.opentracing.Tracer;
 import io.opentracing.util.GlobalTracer;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.StringUtils;
-
-import java.util.Objects;
 
 /**
  * Utility class that handles all tracing related operations
@@ -45,7 +42,7 @@ public class TracingHandler {
 
             return tracer.buildSpan("hystrix:" + commandKey)
                     .asChildOf(parentSpan)
-                    .withTag("hystrix.command", StringUtils.trimToEmpty(commandKey))
+                    .withTag("hystrix.command", commandKey)
                     .start();
         } catch (Exception e) {
             log.error("Error while starting child span", e);
