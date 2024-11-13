@@ -4,14 +4,12 @@ import io.opentracing.Scope;
 import io.opentracing.Span;
 import io.opentracing.Tracer;
 import io.opentracing.util.GlobalTracer;
-import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * Utility class that handles all tracing related operations
  */
 @Slf4j
-@UtilityClass
 public class TracingHandler {
 
     public static Tracer getTracer() {
@@ -76,4 +74,6 @@ public class TracingHandler {
             log.error("Error while closing span and scope", e);
         }
     }
+
+    private TracingHandler() {}
 }
